@@ -17,6 +17,16 @@ class Reactance_Analysis:
                 self.Capacitive_Reactance()
             elif event == "INDUCTIVE":
                self.Inductive_Reactance()
+            elif event == "YES_0":
+                sg.popup("Capacitive Reactance = [2piFC]^-1. ('F' Denotes \n frequency and 'C' denotes Capacitance)."
+                         "Dimensionally you have Hz * F ('F' denotes Ferads). But we know Hz = 1/s, and that one Ferad = Coulombs / Volt. \n"
+                         "Therefore, we have coulombs / (s*V). However, Coulomb = A * s. Hence, we get As/s*V, which simplifies to A / V. \n"
+                         "Looking back, though, at Capacitive Reactance we know that we need to invert A / V, and thus we get V / A. \n"
+                         "According to Ohm's Law, V / A = R.")
+            elif event == "YES_1":
+                sg.popup("Inductive Reactance = [2piFL]. ('F' Denotes \n frequency and 'L' denotes Inductance). \n"
+                         "Dimensionally you have Hz * H ('H' denotes Henry's). But we know Hz = 1/s, and that one Henry = V*s / A. \n"
+                         "Therefore, we have Vs/A*(1/s). Multiplying this through results in V / A. According to Ohm's Law, V / A = R.")
             elif event in (sg.WIN_CLOSED, "EXIT"): break
         self.window.close()
 
@@ -24,8 +34,8 @@ class Reactance_Analysis:
 
         layout = [
             [sg.Text("Please indicate what plot you would like: Inductive or Capacitive")],
-            [sg.Button("Capacitive Reactance", key = "CAPACITIVE")],
-            [sg.Button("Inductive Reactance", key = "INDUCTIVE")],
+            [sg.Button("Capacitive Reactance", key = "CAPACITIVE"), sg.Text("Breakdown of how Reactance in Ohms?"), sg.Button("Yes", key = "YES_0")],
+            [sg.Button("Inductive Reactance", key = "INDUCTIVE"), sg.Text("Breakdown of how Reactance in Ohms?"), sg.Button("Yes", key = "YES_1")],
             [sg.Button("Exit", key = "EXIT")]
         ]
         self.window = sg.Window("Reactance Analysis: R and L", layout, resizable = True)
@@ -46,7 +56,7 @@ class Reactance_Analysis:
     # Code to plot Capacitive Reactance
 
     def Inductive_Reactance(self):
-        Inductance = 1*(10**-6) # a 1uH Capacitor ... 'H' -> 'Henry'
+        Inductance = 1*(10**-3) # a 1uH Capacitor ... 'H' -> 'Henry'
         Frequency_Array = []
         Inductive_Reactance_Array = []
         for Frequency in range(100, 1000100, 100):
