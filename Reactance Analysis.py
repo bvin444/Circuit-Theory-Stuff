@@ -3,6 +3,7 @@ import math as math
 import PySimpleGUI as sg
 import matplotlib
 # Time to add a Tag
+# Attempt_2
 matplotlib.use("TkAgg")  # Ensures compatibility with PySimpleGUI
 
 class Reactance_Analysis:
